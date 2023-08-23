@@ -1,11 +1,13 @@
 ﻿var epsilon = 1e-10;
+var nofSteps = 0L;
 
-var pi = FastCalc(epsilon);
+var pi = SlowCalc(epsilon);
 
-Console.WriteLine($"PI = {pi}");
+Console.WriteLine($"PI = {pi}, precision {epsilon}");
+Console.WriteLine($"Took {nofSteps} steps.");
 
 
-static double SlowCalc(double epsilon)
+double SlowCalc(double epsilon)
 {
     var pi = 0.0;
 
@@ -14,6 +16,8 @@ static double SlowCalc(double epsilon)
 
     while (true)
     {
+        nofSteps++;
+
         var delta = b / a;
         pi += delta;
         if (Math.Abs(delta) < epsilon) break;
@@ -26,7 +30,7 @@ static double SlowCalc(double epsilon)
 }
 
 
-static double FastCalc(double epsilon)
+double FastCalc(double epsilon)
 {
     var pi = 0.0;
 
@@ -36,6 +40,8 @@ static double FastCalc(double epsilon)
 
     while (true)
     {
+        nofSteps++;
+
         var delta1 = b1 / a1;
         var delta2 = b2 / a1;
         pi += delta1 + delta2;
